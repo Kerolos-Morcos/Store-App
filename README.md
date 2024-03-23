@@ -1,6 +1,6 @@
 # store_app
 
-A new Flutter project.
+My Nineth Flutter project in my learning process.
 
 ## Getting Started
 
