@@ -5,10 +5,10 @@ class RatingModel
 
   RatingModel({required this.rate, required this.count});
 
-  factory RatingModel.fromJson(Map<String, dynamic> json) {
+  factory RatingModel.fromJson(Map<String, dynamic> jsonData){
     return RatingModel(
-      rate: json['rate'],
-      count: json['count'],
+      rate: jsonData['rate'],
+      count: jsonData['count'],
     );
   }
 }
