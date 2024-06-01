@@ -10,7 +10,7 @@ class GetProductByCategoryService
     List<dynamic> data = await ApiHelper().getRequest(url: '$kBaseUrl/products/category/$categoryName');
     List<ProductModel> productsList = [];
     for (var i = 0; i < data.length; i++) {
-        productsList.add(ProductModel.fromJson(data[i]));
+      productsList.add(ProductModel.fromJson(data[i]));
     }
     return productsList;
   }
