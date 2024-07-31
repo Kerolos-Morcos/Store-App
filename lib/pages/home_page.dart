@@ -193,6 +193,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0.5,
@@ -249,96 +250,89 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(right: 5.0, left: 5, top: 2, bottom: 2),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height - 83,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                margin: const EdgeInsets.fromLTRB(3, 8, 3, 10),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: TextField(
-                        controller: controller,
-                        onChanged: (value) {
-                          setState(() {
-                            query = value;
-                          });
-                          searchProduct();
-                        },
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.search),
-                          hintText: 'Product Title',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: const BorderSide(color: Colors.black),
-                          ),
+        padding: const EdgeInsets.only(right: 2, left: 2),
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.fromLTRB(3, 8, 3, 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 9,
+                    child: TextField(
+                      controller: controller,
+                      onChanged: (value) {
+                        setState(() {
+                          query = value;
+                        });
+                        searchProduct();
+                      },
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        hintText: 'Product Title',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(color: Colors.black),
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: GestureDetector(
-                        onTap: () {
-                          showAlertDialog(
-                            context,
-                            'Are you sure you want to delete all products?',
-                          );
-                        },
-                        child: const Icon(
-                          Icons.delete,
-                          size: 33,
-                          color: Colors.red,
-                        ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        showAlertDialog(
+                          context,
+                          'Are you sure you want to delete all products?',
+                        );
+                      },
+                      child: const Icon(
+                        Icons.delete,
+                        size: 33,
+                        color: Colors.red,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : displayedProducts.isEmpty && allProductsDeleted
-                        ? const Center(
-                            child: Text(
-                              'No products available !',
-                              style: TextStyle(fontSize: 26),
-                            ),
-                          )
-                        : GridView.builder(
-                            padding: const EdgeInsets.only(top: 50, bottom: 20),
-                            physics: const BouncingScrollPhysics(),
-                            clipBehavior: Clip.hardEdge,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 1.6,
-                              mainAxisSpacing: 65,
-                            ),
-                            itemCount: displayedProducts.length,
-                            itemBuilder: (context, index) {
-                              final product = displayedProducts[index];
-                              return CustomProductCard(
-                                isEnabled: true,
-                                id: product.id,
-                                onDelete: onProductDeleted,
-                                productModel: product,
-                                isFavorite: favoriteStatus[product.id] ?? false,
-                                onToggleFavorite: toggleFavoriteStatus,
-                              );
-                            },
+            ),
+            Expanded(
+              child: isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : displayedProducts.isEmpty && allProductsDeleted
+                      ? const Center(
+                          child: Text(
+                            'No products available !',
+                            style: TextStyle(fontSize: 26),
                           ),
-              ),
-              const SizedBox(
-                height: 45,
-              )
-            ],
-          ),
+                        )
+                      : GridView.builder(
+                          padding: const EdgeInsets.only(top: 40, bottom: 60),
+                          physics: const BouncingScrollPhysics(),
+                          clipBehavior: Clip.hardEdge,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.6,
+                            mainAxisSpacing: 65,
+                          ),
+                          itemCount: displayedProducts.length,
+                          itemBuilder: (context, index) {
+                            final product = displayedProducts[index];
+                            return CustomProductCard(
+                              isEnabled: true,
+                              id: product.id,
+                              onDelete: onProductDeleted,
+                              productModel: product,
+                              isFavorite: favoriteStatus[product.id] ?? false,
+                              onToggleFavorite: toggleFavoriteStatus,
+                            );
+                          },
+                        ),
+            ),
+          ],
         ),
       ),
     );

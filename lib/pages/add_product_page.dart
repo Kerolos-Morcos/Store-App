@@ -57,7 +57,7 @@ class _AddProductPageState extends State<AddProductPage> {
           CustomTextField(
             hintText: 'Add the product name',
             onChanged: (value) {
-              productName  = value;
+              productName = value;
             },
           ),
           const SizedBox(
@@ -70,12 +70,11 @@ class _AddProductPageState extends State<AddProductPage> {
             ),
           ),
           CustomTextField(
-            hintText: 'Add product\'s  price in \$',
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              price = value;
-            }
-          ),
+              hintText: 'Add product\'s  price in \$',
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                price = value;
+              }),
           const SizedBox(
             height: 5,
           ),
@@ -86,11 +85,10 @@ class _AddProductPageState extends State<AddProductPage> {
             ),
           ),
           CustomTextField(
-            hintText: 'Add a short description',
-            onChanged: (value) {
-              description = value;
-            }
-          ),
+              hintText: 'Add a short description',
+              onChanged: (value) {
+                description = value;
+              }),
           const SizedBox(
             height: 5,
           ),
@@ -101,37 +99,36 @@ class _AddProductPageState extends State<AddProductPage> {
             ),
           ),
           CustomTextField(
-            hintText: 'Add the products\'s category',
-            onChanged: (value) {
-              category = value;
-            }
-          ),
+              hintText: 'Add the products\'s category',
+              onChanged: (value) {
+                category = value;
+              }),
           const SizedBox(
             height: 15,
           ),
           CustomButton(
             buttonText: 'Add Product',
             onTap: () async {
-                isLoading = true;
-                setState(() {});
-                try {
-                  await addProduct();
-                  log('success');
-                  showSnackBar(
-                    // ignore: use_build_context_synchronously
-                    context,
-                    'Product added Successfully !',
-                    backgroundColor: Colors.green,
-                  );
-                  Future.delayed(const Duration(seconds: 4));  
-                } catch (e) {
-                  log(e.toString());
-                }
-                isLoading = false;
-                setState(() {});
+              isLoading = true;
+              setState(() {});
+              try {
+                await addProduct();
+                log('success');
+                showSnackBar(
                   // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
-              },
+                  context,
+                  'Product added Successfully !',
+                  backgroundColor: Colors.green,
+                );
+                Future.delayed(const Duration(seconds: 4));
+              } catch (e) {
+                log(e.toString());
+              }
+              isLoading = false;
+              setState(() {});
+              // ignore: use_build_context_synchronously
+              Navigator.pop(context);
+            },
             buttonTextColor: Colors.white,
             buttonBackgroundColor: Colors.black,
           ),
@@ -140,7 +137,7 @@ class _AddProductPageState extends State<AddProductPage> {
     );
   }
 
-   Future<void> addProduct() async {
+  Future<void> addProduct() async {
     await AddProductService().addProduct(
       title: productName == null ? 'product title' : productName!,
       price: price == null ? 'product price \$' : price!,

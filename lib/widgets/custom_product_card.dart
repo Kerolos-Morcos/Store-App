@@ -67,10 +67,6 @@ class _CustomProductCardState extends State<CustomProductCard> {
                       size: 25,
                       color: Colors.grey,
                     ),
-                    constraints: BoxConstraints.tight(
-                      const Size.fromRadius(40),
-                    ),
-                    offset: const Offset(40, 0),
                     padding: const EdgeInsets.fromLTRB(-10, 0, 40, 30),
                     itemBuilder: (context) {
                       return [
@@ -190,5 +186,4 @@ class _CustomProductCardState extends State<CustomProductCard> {
       ],
     );
   }
-
 }

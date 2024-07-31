@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
-  CustomTextField({
-    super.key,
-    this.hintText,
-    this.icon,
-    this.transparentColor,
-    this.onChanged,
-    this.keyboardType
-  });
+  CustomTextField(
+      {super.key,
+      this.hintText,
+      this.icon,
+      this.transparentColor,
+      this.onChanged,
+      this.keyboardType});
   String? hintText;
   IconData? icon;
   Color? transparentColor;
@@ -41,11 +40,10 @@ class CustomTextField extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.grey.shade700),
-          suffixIcon: 
-           Icon(
-              icon,
-              color: Colors.black,
-            ),
+          suffixIcon: Icon(
+            icon,
+            color: Colors.black,
+          ),
         ),
         cursorColor: Colors.black,
       ),

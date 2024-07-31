@@ -15,7 +15,6 @@ class UpdateProductPage extends StatefulWidget {
 
   @override
   State<UpdateProductPage> createState() => _UpdateProductPageState();
-  
 }
 
 class _UpdateProductPageState extends State<UpdateProductPage> {
@@ -144,14 +143,14 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     'Product Updated Successfully !',
                     backgroundColor: Colors.green,
                   );
-                  Future.delayed(const Duration(seconds: 4));  
+                  Future.delayed(const Duration(seconds: 4));
                 } catch (e) {
                   log(e.toString());
                 }
                 isLoading = false;
                 setState(() {});
-                  // ignore: use_build_context_synchronously
-                  Navigator.pop(context, product);
+                // ignore: use_build_context_synchronously
+                Navigator.pop(context, product);
               },
               buttonTextColor: Colors.white,
               buttonBackgroundColor: Colors.black,

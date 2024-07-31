@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class CustomFilterButton extends StatefulWidget {
   const CustomFilterButton(
-      {super.key, required this.categories, required this.onFilterApplied, required this.selectedCategories});
- final List<String> categories;
- final List<String> selectedCategories;
+      {super.key,
+      required this.categories,
+      required this.onFilterApplied,
+      required this.selectedCategories});
+  final List<String> categories;
+  final List<String> selectedCategories;
   final Function(List<String>) onFilterApplied;
   @override
   State<CustomFilterButton> createState() => _CustomFilterButtonState();
@@ -37,11 +40,10 @@ class _CustomFilterButtonState extends State<CustomFilterButton> {
               return user.toLowerCase().contains(query.toLowerCase());
             },
             onApplyButtonClick: (selectedCategories) {
-               widget.onFilterApplied(List.from(selectedCategories!));
+              widget.onFilterApplied(List.from(selectedCategories!));
               setState(() {});
               Navigator.pop(context);
             },
-            
           );
         });
   }
