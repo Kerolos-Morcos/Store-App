@@ -7,14 +7,15 @@ import 'package:store_app/pages/update_product_page.dart';
 import 'package:store_app/services/delete_product_service.dart';
 
 class CustomProductCard extends StatefulWidget {
-  const CustomProductCard(
-      {super.key,
-      required this.productModel,
-      required this.onDelete,
-      required this.id,
-      required this.isFavorite,
-      required this.onToggleFavorite,
-      required this.isEnabled});
+  const CustomProductCard({
+    super.key,
+    required this.productModel,
+    required this.onDelete,
+    required this.id,
+    required this.isFavorite,
+    required this.onToggleFavorite,
+    required this.isEnabled,
+  });
   final ProductModel productModel;
   final Function(String) onDelete;
   final int id;
@@ -178,7 +179,9 @@ class _CustomProductCardState extends State<CustomProductCard> {
           bottom: 80,
           right: 7,
           child: Image.network(
-            widget.productModel.image,
+            widget.productModel.image.isNotEmpty
+                ? widget.productModel.image
+                : 'https://media.istockphoto.com/id/1353254084/vector/1401-i012-025-p-m001-c20-woman-accessories.jpg?s=612x612&w=0&k=20&c=Fqp5ckKD3HMmcybXsRlsNqD55rQrF1xu0uPdia2MAPQ=',
             height: 80,
             width: 80,
           ),

@@ -1,16 +1,16 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class CustomFilterButton extends StatefulWidget {
   const CustomFilterButton(
       {super.key,
       required this.categories,
       required this.onFilterApplied,
-      required this.selectedCategories});
+      required this.selectedCategories, required this.allProductsDeleted});
   final List<String> categories;
   final List<String> selectedCategories;
   final Function(List<String>) onFilterApplied;
+  final bool allProductsDeleted;
   @override
   State<CustomFilterButton> createState() => _CustomFilterButtonState();
 }
@@ -19,12 +19,12 @@ class _CustomFilterButtonState extends State<CustomFilterButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        icon: const Icon(
+        icon: Icon(
           Icons.tune,
           size: 30,
-          color: Colors.green,
+          color: widget.allProductsDeleted ? Colors.grey : Colors.green,
         ),
-        onPressed: () async {
+        onPressed: widget.allProductsDeleted ? null : () async {
           await FilterListDialog.display<String>(
             context,
             listData: widget.categories,
