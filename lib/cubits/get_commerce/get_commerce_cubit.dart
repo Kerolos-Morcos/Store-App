@@ -8,6 +8,7 @@ class GetCommerceCubit extends Cubit<GetCommerceState> {
   final GetAllProductsService productService;
   List<ProductModel> products = [];
   List<ProductModel> displayedProducts = [];
+  List<String> activeFilters = [];
   Map<int, bool> favoriteStatus = {};
   //  id   true
 
@@ -23,13 +24,13 @@ class GetCommerceCubit extends Cubit<GetCommerceState> {
       }
       emit(GetCommerceSuccess(products, favoriteStatus));
     } catch (e) {
-      emit(GetCommerceFailure('cannot fetch products due to Network Issues !'));
+      emit(GetCommerceFailure('cannot fetch products due to Network Issues ! \n$e'));
     }
   }
 
   void toggleFavoriteStatus(int id) {
     favoriteStatus[id] = !favoriteStatus[id]!;
-    emit(GetCommerceSuccess(products, favoriteStatus));
+    emit(GetCommerceSuccess(displayedProducts, favoriteStatus));
     // updating favorites and icon
   }
 
@@ -40,22 +41,41 @@ class GetCommerceCubit extends Cubit<GetCommerceState> {
 
   // for applying filter
   void applyFilter(List<String> categories) {
+    activeFilters = categories;
     if (categories.isEmpty) {
-      products = displayedProducts;
+      displayedProducts = List.from(products);
     } else {
-      products = displayedProducts.where((product) {
-        return categories.contains(product.category);
+      displayedProducts = products.where((product) {
+        return activeFilters.contains(product.category);
       }).toList();
     }
+    emit(GetCommerceSuccess(displayedProducts, favoriteStatus));
     // we update UI depending on categories, using emit()
-    emit(GetCommerceSuccess(products, favoriteStatus));
     // we put this function here coz we update product list
   }
 
   // for deleting product by id
   void deleteProduct(int id) {
     products.removeWhere((product) => product.id == id);
+    // Reapply the filter to ensure displayedProducts remains filtered if necessary
+    applyFilter(activeFilters);
     favoriteStatus.remove(id);
-    emit(GetCommerceSuccess(products, favoriteStatus));
+    emit(GetCommerceSuccess(displayedProducts, favoriteStatus));
+  }
+
+  // for updating a product
+  void refreshProduct(ProductModel updatedProduct) {
+    // Update the main products list
+    products = products.map((product) {
+      if (product.id == updatedProduct.id) {
+        // Preserving the favorite status when updating the product
+        bool isFavorite = favoriteStatus[product.id] ?? false;
+        favoriteStatus[updatedProduct.id] = isFavorite;
+        return updatedProduct;
+      }
+      return product;
+    }).toList();
+    // Reapply the filter to ensure displayedProducts remains filtered if necessary
+    applyFilter(activeFilters);
   }
 }

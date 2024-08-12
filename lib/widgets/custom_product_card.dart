@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_app/cubits/get_commerce/get_commerce_cubit.dart';
 import 'package:store_app/helper/show_snack_bar.dart';
 import 'package:store_app/models/product_model.dart';
 import 'package:store_app/pages/update_product_page.dart';
@@ -73,8 +75,17 @@ class _CustomProductCardState extends State<CustomProductCard> {
                       return [
                         PopupMenuItem(
                           onTap: () {
-                            Navigator.pushNamed(context, UpdateProductPage.id,
-                                arguments: widget.productModel);
+                            Navigator.pushNamed(
+                              context,
+                              UpdateProductPage.id,
+                              arguments: widget.productModel,
+                            ).then((updatedProduct) {
+                              if (updatedProduct != null) {
+                                BlocProvider.of<GetCommerceCubit>(context)
+                                    .refreshProduct(
+                                        updatedProduct as ProductModel);
+                              }
+                            });
                           },
                           height: 25,
                           value: 'edit',
@@ -121,7 +132,9 @@ class _CustomProductCardState extends State<CustomProductCard> {
                     },
                   ),
                   Text(
-                    widget.productModel.title.substring(0, 11),
+                    widget.productModel.title.length >= 12
+                        ? widget.productModel.title.substring(0, 11)
+                        : widget.productModel.title,
                     maxLines: 1,
                     style: const TextStyle(
                       color: Colors.grey,

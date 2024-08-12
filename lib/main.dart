@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:store_app/cubits/edit_commerce/edit_commerce_cubit.dart';
 import 'package:store_app/cubits/get_categories/get_categories_cubit.dart';
 import 'package:store_app/cubits/get_commerce/get_commerce_cubit.dart';
 import 'package:store_app/pages/add_product_page.dart';
@@ -8,6 +9,7 @@ import 'package:store_app/pages/home_page.dart';
 import 'package:store_app/pages/update_product_page.dart';
 import 'package:store_app/services/get_all_categories_service.dart';
 import 'package:store_app/services/get_all_products_service.dart';
+import 'package:store_app/services/update_product_service.dart';
 
 void main() {
   runApp(const StoreApp());
@@ -28,6 +30,11 @@ class StoreApp extends StatelessWidget {
         BlocProvider(
           create: (context) => GetCategoriesCubit(
             GetAllCategoriesService(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => EditCommerceCubit(
+            UpdateProductService(),
           ),
         ),
       ],
