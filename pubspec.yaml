@@ -30,7 +30,7 @@ dependencies:
   filter_list: ^1.0.3
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.6
+  flutter_bloc: ^9.0.0
   font_awesome_flutter: ^10.7.0
   http: ^1.2.1
   image_picker: ^1.1.2
